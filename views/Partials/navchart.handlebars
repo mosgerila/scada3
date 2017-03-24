@@ -1,0 +1,88 @@
+<nav class="navbar navbar-default navbar-static-top">
+    <div class="container">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbarchart" aria-expanded="false" aria-controls="navbarchart">
+            <span class="sr-only">Toggle navigation</span>
+        </button>
+        <div id="navbarchart" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                  <div class="dropdown">
+                      <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Time Range<span class="caret"></span></button>
+                       <ul class="dropdown-menu">
+                           <div class="row">
+        
+            <div class="form-group">
+                <div class='input-group date' id='datetimepicker'>
+                    <input type='text' class="form-control" />
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
+            </div>
+        
+        <script type="text/javascript">
+            $(function () {
+                $('#datetimepicker1').datetimepicker();
+            });
+        </script>
+    </div>
+                          <li><a href="#">HTML</a></li>
+                          <li><a href="#">CSS</a></li>
+                          <li><a href="#">JavaScript</a></li>
+                       </ul>
+                 </div>
+                </li>
+                
+            </ul>
+            
+        </div>
+    </div>
+</nav>
+<script>
+ $(function () {
+   var bindDatePicker = function() {
+		$(".date").datetimepicker({
+        format:'YYYY-MM-DD',
+			icons: {
+				time: "fa fa-clock-o",
+				date: "fa fa-calendar",
+				up: "fa fa-arrow-up",
+				down: "fa fa-arrow-down"
+			}
+		}).find('input:first').on("blur",function () {
+			// check if the date is correct. We can accept dd-mm-yyyy and yyyy-mm-dd.
+			// update the format if it's yyyy-mm-dd
+			var date = parseDate($(this).val());
+
+			if (! isValidDate(date)) {
+				//create date based on momentjs (we have that)
+				date = moment().format('YYYY-MM-DD');
+			}
+
+			$(this).val(date);
+		});
+	}
+   
+   var isValidDate = function(value, format) {
+		format = format || false;
+		// lets parse the date to the best of our knowledge
+		if (format) {
+			value = parseDate(value);
+		}
+
+		var timestamp = Date.parse(value);
+
+		return isNaN(timestamp) == false;
+   }
+   
+   var parseDate = function(value) {
+		var m = value.match(/^(\d{1,2})(\/|-)?(\d{1,2})(\/|-)?(\d{4})$/);
+		if (m)
+			value = m[5] + '-' + ("00" + m[3]).slice(-2) + '-' + ("00" + m[1]).slice(-2);
+
+		return value;
+   }
+   
+   bindDatePicker();
+ });
+
+ </script>
