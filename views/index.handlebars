@@ -1,0 +1,132 @@
+﻿<div class="container">
+    <div class="row">
+        
+        <div class="col-xs-12 col-sm-2">
+             <img class="img-responsive  center-block" src="../images/test3.jpg">
+            <div class="carousel-caption">
+                <input type="text" id="var1" class="form-control" placeholder="Text input">
+            </div>
+        </div>
+        
+        <div class="col-xs-12 col-sm-2">
+            <img class="img-responsive  center-block" src="../images/test3.jpg">
+            <div class="carousel-caption">
+                <input type="text" id="var2" class="form-control" placeholder="Text input">
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-2">
+            <img class="img-responsive  center-block" src="../images/test3.jpg">
+            <div class="carousel-caption">
+                <input type="text" id="var3" class="form-control" placeholder="Text input">
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-2">
+            <img class="img-responsive  center-block" src="../images/test3.jpg">
+            <div class="carousel-caption">
+                <input type="text" id="var4" class="form-control" placeholder="Text input">
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-2">
+            <img class="img-responsive  center-block" src="../images/test3.jpg">
+            <div class="carousel-caption">
+                <input type="text" id="var5" class="form-control" placeholder="Text input">
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-2">
+            <img class="img-responsive  center-block" src="../images/test3.jpg">
+            <div class="carousel-caption">
+                <input type="text" id="var6" class="form-control" placeholder="Text input">
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-2">
+            <img class="img-responsive  center-block" src="../images/test3.jpg">
+            <div class="carousel-caption">
+                <input type="text" id="var7" class="form-control" placeholder="Text input">
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-2">
+            <img class="img-responsive  center-block" src="../images/test3.jpg">
+            <div class="carousel-caption">
+                <input type="text" id="var8" class="form-control" placeholder="Text input">
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-2">
+            <img class="img-responsive  center-block" src="../images/test3.jpg">
+            <div class="carousel-caption">
+                <input type="text" id="var9" class="form-control" placeholder="Text input">
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-2">
+            <img class="img-responsive  center-block" src="../images/test3.jpg">
+            <div class="carousel-caption">
+                <input type="text" id="var10" class="form-control" placeholder="Text input">
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-2">
+            <img class="img-responsive  center-block" src="../images/test3.jpg">
+            <div class="carousel-caption">
+                <input type="text" id="var11" class="form-control" placeholder="Text input">
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-2">
+            <img class="img-responsive  center-block" src="../images/test3.jpg">
+            <div class="carousel-caption">
+                <input type="text" id="var12" class="form-control" placeholder="Text input">
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="/socket.io/socket.io.js"></script>
+<script>
+        
+        var socket = io.connect();
+        // $('#var12').val(7);
+        //socket.on('connect_timeout', function(err) {
+        // wait 5 seconds then try again
+        // $('#var12').val('error');
+        //if (!socket.socket.connected) {
+          //  $('#var12').val('ERROR');
+        //}
+   // });
+        
+        
+        
+        socket.on('var1', function (msg) {
+        $('#var1').val(msg);
+        });
+        socket.on('var2', function (msg) {
+            $('#var2').val(msg);
+        });
+        socket.on('var3', function (msg) {
+            $('#var3').val(msg);
+        });
+        socket.on('var4', function (msg) {
+            $('#var4').val(msg);
+        });
+        socket.on('var5', function (msg) {
+            $('#var5').val(msg);
+        });
+        socket.on('var6', function (msg) {
+            $('#var6').val(msg);
+        });
+        socket.on('var7', function (msg) {
+            $('#var7').val(msg);
+        });
+        socket.on('var8', function (msg) {
+            $('#var8').val(msg);
+        });
+        socket.on('var9', function (msg) {
+            $('#var9').val(msg);
+        });
+        socket.on('var10', function (msg) {
+            $('#var10').val(msg);
+        });
+        socket.on('var11', function (msg) {
+            $('#var11').val(msg);
+        });
+        socket.on('var12', function (msg) {
+            //$('#var12').val('Error');
+        });
+</script>
+

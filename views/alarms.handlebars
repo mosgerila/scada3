@@ -1,0 +1,55 @@
+﻿<div class="container">
+        
+        <table class="table table-bordered table-responsive table-hover max-height=80%">
+            <thead>
+            <tr class="success">
+
+                <th>Time</th>
+                <th>Text</th>
+
+            </tr>
+            </thead>
+            <tbody id="err">
+            <div id="current">
+            </div>
+            <div id="last">
+            </div>
+            <tr>
+                <td>Da</td>
+                <td>Nu</td>
+
+            </tr>
+            <tr>
+
+                <div></div>
+            </tr>
+    </tbody>
+
+
+        </table>
+</div>
+<script src="/socket.io/socket.io.js"></script>
+<script>
+         var socket = io();
+        socket.emit('givealarm');
+        socket.on('alarm', function (msg) {
+            var i;
+            for (i = 0; i < msg.length; i++) {
+                $('#err').prepend('<tr><td>' + msg[i].time.replace('T', ' ').substr(0, 19) + '</td><td>' + msg[i].alarmtext + '</td></tr>');
+                
+            }
+            
+        });
+        socket.on('alarmrealtime', function (msg) {
+           if (msg.status=='in'){
+              $('#err').prepend('<tr class="danger"><td>' + msg.time.replace('T', ' ').substr(0, 19) + '</td><td>' + msg.alarmtext + '</td></tr>');   
+           }
+           else {
+               $('#err').prepend('<tr><td>' + msg.time.replace('T', ' ').substr(0, 19) + '</td><td>' + msg.alarmtext + '</td></tr>');
+           }
+
+            
+
+        });
+        
+</script>

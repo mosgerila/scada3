@@ -1,0 +1,85 @@
+﻿<div class="container">
+    
+        <div class="row">
+            
+            <div class="col-xs-12 col-md-3">
+                
+               <!--form class="form-horizontal"--> 
+                <h3>Var1</h3>               
+                
+                <form class="form-group" onsubmit="var1max()">
+                        <label for="varinp1" class="col-sm-2 col-xs-2 control-label">Max</label>
+                        
+                        <div class="col-sm-10 col-xs-10">
+                            <input type="text" class="form-control" id="varinp1" class="form-control" placeholder="Text input" maxlength="3">
+                        </div>
+                        <input type="submit" style="position: absolute; left: -9999px" />
+                </form>
+                
+                <form class="form-group" onsubmit="var1min()">
+                        <label for="varinp2" class="col-sm-2 col-xs-2 control-label">Min</label>
+                        <div class="col-sm-10 col-xs-10">
+                            <input type="text" class="form-control" id="varinp2" class="form-control" placeholder="Text input" maxlength="3">
+                        </div>
+                        <input type="submit" style="position: absolute; left: -9999px" />
+                </form>
+                 
+               <!--/form-->
+            </div>
+
+            <div class="col-xs-12 col-md-3">
+                
+               <form class="form-horizontal"> 
+                <h3>Var2</h3>               
+                
+                <form class="form-group" onsubmit="var2max()">
+                        <label for="varinp3" class="col-sm-2 col-xs-2 control-label">Max</label>
+                        <div class="col-sm-10 col-xs-10">
+                            <input type="text" class="form-control" id="varinp3" class="form-control" placeholder="Text input" maxlength="3">
+                        </div>
+                </form>
+                
+                <form class="form-group" onsubmit="var2min()">
+                        <label for="varinp4" class="col-sm-2 col-xs-2 control-label">Min</label>
+                        <div class="col-sm-10 col-xs-10">
+                            <input type="text" class="form-control" id="varinp4" class="form-control" placeholder="Text input" maxlength="3">
+                        </div>
+                </form>
+                 
+               </form>
+            </div>
+
+
+
+        </div>
+</div> 
+
+        <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/d3/3.2.2/d3.v3.min.js"></script>
+        <script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+        <script src="../js/chart.bundle.js"></script>
+        <script src="/socket.io/socket.io.js"></script>
+        <script>
+            var socket = io();
+
+           
+            function var1max() {
+                socket.emit('var1max', $('#varinp1').val());
+            };
+
+            function var1min() {
+                socket.emit('var1min', $('#varinp2').val());
+            };
+             
+            socket.on('setget', function (msg) {
+              $('#varinp1').val(msg);
+            }); 
+
+
+
+
+            socket.emit('getset');
+
+
+
+
+        </script>
