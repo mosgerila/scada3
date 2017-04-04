@@ -192,6 +192,18 @@ io.on('connection', function (socket) {
               io.sockets.emit('setget', lastVars[8]);  
            
     });
+
+      socket.on('mindate', function (data) {
+               
+              console.log('Date Min: ',data);
+              db.readArhiveChart(data,function (db){
+              io.sockets.emit('charthistoricdata', db);
+              console.log(db);  
+           
+
+        });
+           
+    });
  
     
 });

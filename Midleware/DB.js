@@ -20,7 +20,7 @@ module.exports={
                 console.log(error);
             });
         db.query("Insert into test1 (Time,val1,val2,val3,val4,val5) values (Timestamp '" + CurrentTime + "'," + value[0] / 10 + "," + value[1] / 10 + "," + value[2] / 10 + "," + value[3] / 10 + "," + value[4] / 10 + ")");
-        db.query("delete from test1 where time < now() - interval '2 minutes'");
+        db.query("delete from test1 where time < now() - interval '30 minutes'");
         
     },
 
@@ -88,6 +88,21 @@ module.exports={
                 console.log(error);
             });
         
+    },
+
+     readArhiveChart : function (mindate,res) {
+        //var time=mindate.toISOString().replace('T', ' ').substr(0, 19); 
+        //console.log("select time,val1 from test1 where time < '"+mindate+"' order by time");
+        db.any("select time,val1 from test1 where time > '"+mindate+"' order by time", [true]).then(function (data) {
+               
+
+                res(data);
+            })
+            .catch(function (error) {
+                writeAlarms(error);
+                console.log(error);
+            });
+
     },
 
 }
