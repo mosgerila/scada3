@@ -13,6 +13,7 @@
 <script src="/socket.io/socket.io.js"></script>
 <script>
         var socket = io();
+        var realtime=true;
         var dps = [12, 19, 3, 5, 2, 3];
         var dps2 = [12, 19, 3, 5, 2, 3];
         var time = [12, 19, 3, 5, 2, 3];
@@ -114,8 +115,9 @@
             dps[dps.length-1] = msg.val / 10;
             dps2[dps.length-1] = (msg.val / 10) - 0.5;
             time[dps.length-1] = msg.time;
-
+            if (realtime){
             myChart.update();
+            };
         });
 
        

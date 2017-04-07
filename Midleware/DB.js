@@ -90,10 +90,10 @@ module.exports={
         
     },
 
-     readArhiveChart : function (mindate,res) {
+     readArhiveChart : function (mindate,maxdate,res) {
         //var time=mindate.toISOString().replace('T', ' ').substr(0, 19); 
         //console.log("select time,val1 from test1 where time < '"+mindate+"' order by time");
-        db.any("select time,val1 from test1 where time > '"+mindate+"' order by time", [true]).then(function (data) {
+        db.any("select time,val1 from test1 where time > '"+mindate+"'and time < '"+maxdate+"' order by time", [true]).then(function (data) {
                
 
                 res(data);

@@ -2,30 +2,39 @@
     <div class="container">
         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbarchart" aria-expanded="false" aria-controls="navbarchart">
             <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
         </button>
         <div id="navbarchart" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
+                 <li>
                   <div class="dropdown">
+                      
                       <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Time Range<span class="caret"></span></button>
                        <ul class="dropdown-menu">
-                           <div class="row">
-        <form class="form-group"; onsubmit="MinDate(); return false" >
-            <div class="form-group">
-                <div class='input-group date'>
-                    <input type='datetime-local' class="form-control" id='datetimepicker'/>
-                    <input type="submit" style="position: absolute; left: -9999px" />
-                </div>
-            </div>
-        </form>
-        
-    </div>
-                          <li><a href="#">HTML</a></li>
-                          <li><a href="#">CSS</a></li>
-                          <li><a href="#">JavaScript</a></li>
+                          
+                             <form class="form-group"; onsubmit="MinDate(); return false" >
+                               <div class="form-group">
+                                <div class='input-group date'>
+                                   <li>Min time</li> 
+                                   <input type='datetime-local' class="form-control" id='MinValDate'/>
+                                   <li>Max time</li>
+                                   <input type='datetime-local' class="form-control" id='MaxValDate'/>
+                                   <input type="submit"/>
+                                </div>
+                              </div>
+                            </form>
+                        
+                          
+                         
                        </ul>
                  </div>
+                 </li>
+                <li>
+                <button id="rt" type="button" class="btn btn-info glyphicon glyphicon-play"></button>
                 </li>
-                
             </ul>
             
         </div>
@@ -34,7 +43,9 @@
 <script>
 var socket = io();
  function MinDate() {
-                socket.emit('mindate', $('#datetimepicker').val());
+                socket.emit('mindate', {mindate:$('#MinValDate').val(),maxdate:$('#MaxValDate').val()});
+                realtime=false;
+                $('#rt').class="btn-danger";
             };
-
+ 
  </script>

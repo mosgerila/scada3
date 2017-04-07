@@ -196,7 +196,7 @@ io.on('connection', function (socket) {
       socket.on('mindate', function (data) {
                
               console.log('Date Min: ',data);
-              db.readArhiveChart(data,function (db){
+              db.readArhiveChart(data.mindate,data.maxdate,function (db){
               io.sockets.emit('charthistoricdata', db);
               console.log(db);  
            
