@@ -20,7 +20,7 @@ module.exports={
                 console.log(error);
             });
         db.query("Insert into test1 (Time,val1,val2,val3,val4,val5) values (Timestamp '" + CurrentTime + "'," + value[0] / 10 + "," + value[1] / 10 + "," + value[2] / 10 + "," + value[3] / 10 + "," + value[4] / 10 + ")");
-        db.query("delete from test1 where time < now() - interval '30 minutes'");
+        db.query("delete from test1 where time < now() - interval '5 days'");
         
     },
 
@@ -48,14 +48,19 @@ module.exports={
     },
 
     readData : function (res) {
-        db.any("select time,val1 from test1 order by time", [true])
+        
+        db.any("select time,val1 from test1  where time > now() - interval '60 minutes' order by time", [true])
             .then(function (data) {
-               
+              var i;
+               var tzoffset = (new Date()).getTimezoneOffset() * 60000;
+              for (i=0;i<data.length;i++){
+                  data[i].time=new Date(data[i].time-tzoffset).toISOString().replace('T', ' ').substr(0, 19);
+              };
 
                 res(data);
             })
             .catch(function (error) {
-                writeAlarms(error);
+                //writeAlarms(error);
                 console.log(error);
             });
 
@@ -95,7 +100,12 @@ module.exports={
         //console.log("select time,val1 from test1 where time < '"+mindate+"' order by time");
         db.any("select time,val1 from test1 where time > '"+mindate+"'and time < '"+maxdate+"' order by time", [true]).then(function (data) {
                
-
+                 var i;
+               var tzoffset = (new Date()).getTimezoneOffset() * 60000;
+              for (i=0;i<data.length;i++){
+                  data[i].time=new Date(data[i].time-tzoffset).toISOString().replace('T', ' ').substr(0, 19);
+              };
+                 
                 res(data);
             })
             .catch(function (error) {

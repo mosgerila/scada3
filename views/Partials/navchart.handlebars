@@ -12,7 +12,7 @@
                  <li>
                   <div class="dropdown">
                       
-                      <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Time Range<span class="caret"></span></button>
+                      <button class="btn btn-primary dropdown-toggle navbar-btn" type="button" data-toggle="dropdown">Time Range<span class="caret"></span></button>
                        <ul class="dropdown-menu">
                           
                              <form class="form-group"; onsubmit="MinDate(); return false" >
@@ -33,7 +33,13 @@
                  </div>
                  </li>
                 <li>
-                <button id="rt" type="button" class="btn btn-info glyphicon glyphicon-play"></button>
+                <button id="rt" type="button" class="btn btn-info glyphicon glyphicon-play navbar-btn" onclick="startRealTime()"></button>
+                </li>
+                 <li>
+                <button id="bigger" type="button" class="btn btn-default glyphicon glyphicon-zoom-in navbar-btn" onclick="zoomin()"></button>
+                </li>
+                <li>
+                <button id="smaller" type="button" class="btn btn-default glyphicon glyphicon-zoom-out navbar-btn" onclick="zoomout()"></button>
                 </li>
             </ul>
             
@@ -42,10 +48,218 @@
 </nav>
 <script>
 var socket = io();
+ 
+
+
  function MinDate() {
                 socket.emit('mindate', {mindate:$('#MinValDate').val(),maxdate:$('#MaxValDate').val()});
                 realtime=false;
-                $('#rt').class="btn-danger";
+                //$('#rt').class="btn-danger";
+                document.getElementById("rt").className="btn btn-danger glyphicon glyphicon-pause navbar-btn";
             };
+ function startRealTime(){
+                if (!realtime){
+                realtime=true; 
+                document.getElementById("rt").className="btn btn-info glyphicon glyphicon-play navbar-btn"; 
+                socket.emit('getdatta');
+                }
+                else {
+                   realtime=false;
+                //$('#rt').class="btn-danger";
+                document.getElementById("rt").className="btn btn-danger glyphicon glyphicon-pause navbar-btn"; 
+                }
+ };    
+
+ function zoomin(){
+    var i,t,z;
+    
+    len=dps.length;
+            var ctx = document.getElementById("myChart");
+             realtime=false;
+             document.getElementById("rt").className="btn btn-danger glyphicon glyphicon-pause navbar-btn"
+             myChart.destroy();
+            if (len>52){
+               for (i=len-1; i>len-50; i--)
+               {
+                
+                t=dps.pop();
+                z=time.pop();
+                dat.push(t);
+                tim.push(z);
+               }
+            };
+             myChart=new Chart(ctx, {
+            type: 'line',
+            data: {
+                //labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+                labels:time,
+                data: dps,
+                label: 'Rezervor 1',
+                datasets: [
+                           {
+                            label: "Rezervor1",
+                            fill: false,
+                            lineTension: 0.5,
+                            backgroundColor: "rgba(75,192,192,0.4)",
+                            borderColor: "rgba(75,192,192,1)",
+                            borderCapStyle: 'butt',
+                            borderDash: [],
+                            borderDashOffset: 0.0,
+                            borderJoinStyle: 'miter',
+                            pointBorderColor: "rgba(75,192,192,1)",
+                            pointBackgroundColor: "#fff",
+                            pointBorderWidth: 1,
+                            pointHoverRadius: 5,
+                            pointHoverBackgroundColor: "rgba(75,192,192,1)",
+                            pointHoverBorderColor: "rgba(220,220,220,1)",
+                            pointHoverBorderWidth: 2,
+                            pointRadius: 1,
+                            pointHitRadius: 10,
+                            data: dps,
+                            spanGaps: false,
+                            tooltip: {enabled: true},
+                           },
+                {
+                label: "Rezervor2",
+                fill: false,
+                lineTension: 0.5,
+                backgroundColor: "rgba(255, 99, 132, 0.2)",
+                borderColor: "rgba(255,99,132,1)",
+                borderCapStyle: 'butt',
+                borderDash: [],
+                borderDashOffset: 0.0,
+                borderJoinStyle: 'miter',
+                pointBorderColor: "rgba(75,192,192,1)",
+                pointBackgroundColor: "#fff",
+                pointBorderWidth: 1,
+                pointHoverRadius: 5,
+                pointHoverBackgroundColor: "rgba(75,192,192,1)",
+                pointHoverBorderColor: "rgba(220,220,220,1)",
+                pointHoverBorderWidth: 2,
+                pointRadius: 1,
+                pointHitRadius: 10,
+                data: dps2,
+                spanGaps: false,
+                
+            }
+                          ]
+                
+            },
+            options: {
+                responsive: true,
+                animation: { duration: 50 },
+                fill: true,
+                tooltips: { mode: 'index', intersect: false },
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+        });
+
+             
+            //myChart.update();
+ };    
+
+ function zoomout(){
+    var i;
+    
+    len=dat.length;
+            var ctx = document.getElementById("myChart");
+             realtime=false;
+             document.getElementById("rt").className="btn btn-danger glyphicon glyphicon-pause navbar-btn"
+             myChart.destroy();
+            if (len>52){
+               for (i=len-1; i>len-50; i--)
+               {
+            
+                
+                t=dat.pop();
+                z=tim.pop();
+                dps.push(t);
+                time.push(z);
+            
+               } 
+            };
+            
+
+             myChart=new Chart(ctx, {
+            type: 'line',
+            data: {
+                //labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+                labels:time,
+                data: dps,
+                label: 'Rezervor 1',
+                datasets: [
+                           {
+                            label: "Rezervor1",
+                            fill: false,
+                            lineTension: 0.5,
+                            backgroundColor: "rgba(75,192,192,0.4)",
+                            borderColor: "rgba(75,192,192,1)",
+                            borderCapStyle: 'butt',
+                            borderDash: [],
+                            borderDashOffset: 0.0,
+                            borderJoinStyle: 'miter',
+                            pointBorderColor: "rgba(75,192,192,1)",
+                            pointBackgroundColor: "#fff",
+                            pointBorderWidth: 1,
+                            pointHoverRadius: 5,
+                            pointHoverBackgroundColor: "rgba(75,192,192,1)",
+                            pointHoverBorderColor: "rgba(220,220,220,1)",
+                            pointHoverBorderWidth: 2,
+                            pointRadius: 1,
+                            pointHitRadius: 10,
+                            data: dps,
+                            spanGaps: false,
+                            tooltip: {enabled: false},
+                           },
+                {
+                label: "Rezervor2",
+                fill: false,
+                lineTension: 0.5,
+                backgroundColor: "rgba(255, 99, 132, 0.2)",
+                borderColor: "rgba(255,99,132,1)",
+                borderCapStyle: 'butt',
+                borderDash: [],
+                borderDashOffset: 0.0,
+                borderJoinStyle: 'miter',
+                pointBorderColor: "rgba(75,192,192,1)",
+                pointBackgroundColor: "#fff",
+                pointBorderWidth: 1,
+                pointHoverRadius: 5,
+                pointHoverBackgroundColor: "rgba(75,192,192,1)",
+                pointHoverBorderColor: "rgba(220,220,220,1)",
+                pointHoverBorderWidth: 2,
+                pointRadius: 1,
+                pointHitRadius: 10,
+                data: dps2,
+                spanGaps: false,
+                
+            }
+                          ]
+                
+            },
+            options: {
+                responsive: true,
+                animation: { duration: 50 },
+                fill: true,
+                tooltips: { mode: 'index', intersect: false },
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+        });
+
+             
+            //myChart.update();
+ };    
  
  </script>

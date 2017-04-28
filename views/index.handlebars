@@ -3,12 +3,14 @@
         
         <div class="col-xs-12 col-sm-2">
              <img class="img-responsive  center-block" src="../images/test3.jpg">
-            <div class="carousel-caption">
-                <input type="text" id="var1" class="form-control" placeholder="Text input">
+             
+             <div class="carousel-caption">
+                <p><h3 class="text-primary">R 1</h3></p>
+                <p><h3 class="text-primary" id="var1">Var1</h3></p>
             </div>
         </div>
         
-        <div class="col-xs-12 col-sm-2">
+        <div class="col-xs-6 col-sm-2">
             <img class="img-responsive  center-block" src="../images/test3.jpg">
             <div class="carousel-caption">
                 <input type="text" id="var2" class="form-control" placeholder="Text input">
@@ -93,7 +95,7 @@
         
         
         socket.on('var1', function (msg) {
-        $('#var1').val(msg);
+        $('#var1').html(msg);
         });
         socket.on('var2', function (msg) {
             $('#var2').val(msg);

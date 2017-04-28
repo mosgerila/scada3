@@ -14,10 +14,13 @@
 <script>
         var socket = io();
         var realtime=true;
+        var dat=[0];
+        var tim=[0];
         var dps = [12, 19, 3, 5, 2, 3];
         var dps2 = [12, 19, 3, 5, 2, 3];
         var time = [12, 19, 3, 5, 2, 3];
         var ctx = document.getElementById("myChart");
+        var discr;
         var myChart = new Chart(ctx, {
             type: 'line',
             data: {
@@ -95,6 +98,8 @@
         socket.on('data', function (msg) {
             var x = msg;
             var i;
+            max=msg.length/(msg.length/50)
+            discr=~~(msg.length/50);
             for (i=0; i<msg.length; i++)
             {
                 dps[i] = msg[i].val1;
@@ -106,6 +111,7 @@
         socket.on('chartrealtime', function (msg) {
             var x = msg;
             var i;
+            
            
             for (i = 0; i <dps.length-1; i++) {
                 dps[i] = dps[i + 1];
