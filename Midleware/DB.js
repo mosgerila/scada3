@@ -86,11 +86,12 @@ module.exports={
             .then(function (data) {
                
                 
-                res(data);
+                res(null,data);
             })
             .catch(function (error) {
                 writeAlarms(error);
                 console.log(error);
+                res(error,null);
             });
         
     },
@@ -114,6 +115,23 @@ module.exports={
             });
 
     },
+
+    testWriteNormal : function (value,res){
+    
+            var tzoffset = (new Date()).getTimezoneOffset() * 60000;
+            var CurrentTime = (new Date(Date.now() - tzoffset)).toISOString().replace('T', ' ').substr(0, 19);
+
+            db.query("Insert into currentalarms values (" + value + ",Timestamp'" + CurrentTime+"')")
+            .then(function(res){ 
+              res(null,'done')   
+            })
+            .catch(function (error)
+            {
+                res(error,null)
+            }); 
+        
+    
+    }, 
 
 }
 
