@@ -116,21 +116,21 @@ module.exports={
 
     },
 
-    testWriteNormal : function (value,res){
+    testWriteNormal : function (value,resp){
     
             var tzoffset = (new Date()).getTimezoneOffset() * 60000;
             var CurrentTime = (new Date(Date.now() - tzoffset)).toISOString().replace('T', ' ').substr(0, 19);
 
             db.query("Insert into currentalarms values (" + value + ",Timestamp'" + CurrentTime+"')")
             .then(function(res){ 
-              res(null,'done')   
+              return resp(null,'done')   
             })
             .catch(function (error)
             {
-                res(error,null)
+               return resp(error,null)
             }); 
         
-    
+            
     }, 
 
 }

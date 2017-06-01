@@ -13,11 +13,11 @@ var db = require('../midleware/db');
 describe('DB',function(){
   describe('writealarms',function(){
     it('Should write without errors', function(done){
-        db.testWriteNormal("data",function(err,res){
+        db.testWriteNormal("'1'" ,function(err,res){
           if (err) return done(err);
           //res.should.have.length(3);
-          res.should.be.equal('done')
-          done();
+          //assert.equal('done')
+          done(err,res);
         });
     });
   });
